@@ -22,11 +22,10 @@ async function formatDate(timestamp) {
 
 function retrieveSenderName(email) {
     const senderNameR = email.from_parsed[0].name; // The sender's name at first recieved.
-    console.warn(senderNameR)
     if (!senderNameR) {
-        return ""
+        return "";
     } else {
-        resultFormatted = `(${senderNameR}) `
+        resultFormatted = `(${senderNameR}) `; //This space is needed to space the name from email. "(Demo) Demo@demo.net" or it would look like "(Demo)Demo@demo.net"
         return resultFormatted;
     }
 }
