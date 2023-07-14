@@ -21,13 +21,11 @@ async function formatDate(timestamp) {
 }
 
 function retrieveSenderName(email) {
-    const senderNameR = email.from_parsed[0].name; // The sender's name at first recieved.
-    if (!senderNameR) {
-        return "";
-    } else {
-        resultFormatted = `(${senderNameR}) `; //This space is needed to space the name from email. "(Demo) Demo@demo.net" or it would look like "(Demo)Demo@demo.net"
-        return resultFormatted;
-    }
+    const senderName = email.from_parsed[0].name; // The sender's name at first recieved.
+
+    if(!senderName) return "";
+
+    return senderName;
 }
 
 function formatBytes(bytes, decimals = 2) {
@@ -68,7 +66,7 @@ async function fetchMail(apikey, namespace, tag) {
 
         mailElement.innerHTML = `${mailElement.innerHTML}<div><a class="text-blue-500 hover:text-blue-600" href="${email.downloadUrl}"><i class="fa-solid fa-download"></i> Download</a><br>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Received</span>: ${mailDate}</div>`;
-        mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">From</span>: <a class="text-blue-500 hover:text-blue-600" href="mailto:${email.from_parsed[0].address}">${senderName}${email.from_parsed[0].address}</a></div>`;
+        mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">From</span>: <a class="text-blue-500 hover:text-blue-600" href="mailto:${email.from_parsed[0].address}">${senderName} (${email.from_parsed[0].address})</a></div>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Subject</span>: ${email.subject ?? '<span class="italic">No subject</span>'}</div>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Body</span>: ${email.text ?? '<span class="italic">No body</span>'}</div>`;
 
