@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- HTML Meta Tags -->
+        <title>testmail.app Dashboard</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css">
+
+        <!-- Scripts -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    </head>
+
+    <body class="p-4 max-w-md bg-zinc-900 text-white">
+        <h1 class="text-3xl font-bold mb-4"><a class="text-blue-500 hover:text-blue-600" href="https://testmail.app">testmail.app</a></h1>
+
+        <input id="namespace" type="text" class="block p-3 w-full rounded-md text-sm bg-gray-700 border-gray-600 outline-none focus:outline-2 focus:outline-blue-600 mb-4" placeholder="Namespace" minlength="5" maxlength="5">
+        <input id="tag" type="text" class="block p-3 w-full rounded-md text-sm bg-gray-700 border-gray-600 outline-none focus:outline-2 focus:outline-blue-600 mb-4" placeholder="Tag">
+        <input id="apikey" type="password" class="block p-3 w-full rounded-md text-sm bg-gray-700 border-gray-600 outline-none focus:outline-2 focus:outline-blue-600 mb-4" placeholder="API Key" minlength="36" maxlength="36">
+
+        <button id="apikey-btn" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg mr-2" onclick="toggleAPIKeyView()">Show API Key</button>
+        <button id="fetch" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg" onclick="fetchData()">Fetch Mail</button>
+
+        <br>
+
+        <div id="data" class="mt-4"></div>
+
+        <script src="/cookies.js"></script>
+        <script src="/functions.js"></script>
+    </body>
+</html>
