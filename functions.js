@@ -20,6 +20,17 @@ async function formatDate(timestamp) {
     return moment.unix(timestamp / 1000).format("Do MMMM YYYY, h:mma");
 }
 
+function retrieveSenderName(email) {
+    const senderNameR = email.from_parsed[0].name; // The sender's name at first recieved.
+    console.warn(senderNameR)
+    if (!senderNameR) {
+        return ""
+    } else {
+        resultFormatted = `(${senderNameR}) `
+        return resultFormatted;
+    }
+}
+
 function formatBytes(bytes, decimals = 2) {
     if (!+bytes) return "0B";
 
@@ -50,13 +61,15 @@ async function fetchMail(apikey, namespace, tag) {
     for (const email of request.emails) {
         const mailDate = await formatDate(email.date);
 
+        const senderName = retrieveSenderName(email);
+
         const mailElement = document.createElement("div");
         mailElement.classList = "p-4 w-max bg-zinc-800 mb-4 rounded-md";
         div.appendChild(mailElement);
 
         mailElement.innerHTML = `${mailElement.innerHTML}<div><a class="text-blue-500 hover:text-blue-600" href="${email.downloadUrl}"><i class="fa-solid fa-download"></i> Download</a><br>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Received</span>: ${mailDate}</div>`;
-        mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">From</span>: <a class="text-blue-500 hover:text-blue-600" href="mailto:${email.envelope_from}">${email.envelope_from}</a></div>`;
+        mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">From</span>: <a class="text-blue-500 hover:text-blue-600" href="mailto:${email.from_parsed[0].address}">${senderName}${email.from_parsed[0].address}</a></div>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Subject</span>: ${email.subject ?? '<span class="italic">No subject</span>'}</div>`;
         mailElement.innerHTML = `${mailElement.innerHTML}<div><span class="font-semibold">Body</span>: ${email.text ?? '<span class="italic">No body</span>'}</div>`;
 
